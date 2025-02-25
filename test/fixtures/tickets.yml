@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ticket_number: MyString
+  valid_until: 2025-02-24 23:52:08
+  sale: one
+  template_id: 1
+  printed: false
+
+two:
+  ticket_number: MyString
+  valid_until: 2025-02-24 23:52:08
+  sale: two
+  template_id: 1
+  printed: false

@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  amount: 9.99
+  payment_method: MyString
+  number_of_passengers: 1
+  notes: MyText
+  timestamp: 2025-02-24 23:48:58
+  user: one
+  location: one
+  organization: one
+
+two:
+  amount: 9.99
+  payment_method: MyString
+  number_of_passengers: 1
+  notes: MyText
+  timestamp: 2025-02-24 23:48:58
+  user: two
+  location: two
+  organization: two
