@@ -1,0 +1,33 @@
+<div class="bg-gray-800 text-white">
+  <div class="flex items-center justify-between h-16 px-4">
+    <h1 class="font-bold text-xl">Train Ticket System</h1>
+
+    <div class="relative" x-data="{ open: false }">
+      <button @click="open = !open" class="p-2 rounded-md focus:outline-none">
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+
+      <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg">
+        <div class="py-1">
+          <% if current_user.cashier? %>
+            <%= link_to "Nueva Venta", new_sale_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+            <%= link_to "Mis Ventas", sales_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+          <% end %>
+
+          <% if current_user.manager? || current_user.owner? %>
+            <%= link_to "Dashboard", daily_reports_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+            <%= link_to "Reporte Diario", daily_reports_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+            <%= link_to "Reporte Mensual", monthly_reports_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+            <%= link_to "Ventas", sales_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+            <%= link_to "Usuarios", users_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+            <%= link_to "Sucursales", locations_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+          <% end %>
+
+          <%= link_to "Cerrar Sesión", login_path, data: { "turbo-method": :delete }, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
