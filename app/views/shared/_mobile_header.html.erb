@@ -11,7 +11,7 @@
         </svg>
       </button>
 
-      <div data-dropdown-menu-target="menu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg">
+      <div data-dropdown-target="menu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg">
         <div class="py-1">
           <% if current_user.cashier? %>
             <%= link_to "Nueva Venta", new_sale_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
