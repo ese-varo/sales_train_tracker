@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user!
-    unless user_sigend_in?
+    unless user_signed_in?
       redirect_to login_path, alert: "Necesitas iniciar sesion para acceder a esta pagina."
     end
   end

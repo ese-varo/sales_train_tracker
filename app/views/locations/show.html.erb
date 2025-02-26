@@ -1,0 +1,198 @@
+<%# Location Show View %>
+<div>
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold"><%= @location.name %></h1>
+    <div class="flex space-x-2">
+      <% if current_user.owner? %>
+        <%= link_to "Editar", edit_location_path(@location), class: "inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+      <% end %>
+      <%= link_to "Configurar Impresoras", location_printer_configs_path(@location), class: "inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+      <%= link_to "Volver", locations_path, class: "inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+    </div>
+  </div>
+
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
+    <div class="px-4 py-5 sm:px-6">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">
+        Detalles de la Sucursal
+      </h3>
+    </div>
+    <div class="border-t border-gray-200">
+      <dl>
+        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Nombre
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            <%= @location.name %>
+          </dd>
+        </div>
+        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Dirección
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            <%= @location.address %>
+          </dd>
+        </div>
+        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Nombre de Contacto
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            <%= @location.contact_name %>
+          </dd>
+        </div>
+        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Teléfono de Contacto
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            <%= @location.contact_phone %>
+          </dd>
+        </div>
+        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Estado
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            <% if @location.active? %>
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                Activa
+              </span>
+            <% else %>
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                Inactiva
+              </span>
+            <% end %>
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <!-- Daily Sales Summary Card -->
+    <div class="bg-white shadow rounded-lg p-6">
+      <h2 class="text-lg font-medium text-gray-900 mb-4">Ventas de Hoy</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <p class="text-sm text-gray-500">Total Ventas</p>
+          <p class="text-xl font-semibold">$<%= @daily_sales.sum(:amount) %></p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">Tickets</p>
+          <p class="text-xl font-semibold"><%= @daily_sales.count %></p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">Pasajeros</p>
+          <p class="text-xl font-semibold"><%= @daily_sales.sum(:number_of_passengers) %></p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">Promedio</p>
+          <p class="text-xl font-semibold">
+            <% if @daily_sales.count > 0 %>
+              $<%= (@daily_sales.sum(:amount) / @daily_sales.count).round(2) %>
+            <% else %>
+              $0.00
+            <% end %>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Users Card -->
+    <div class="bg-white shadow rounded-lg p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-medium text-gray-900">Personal Activo</h2>
+        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded"><%= @active_users.count %> usuarios</span>
+      </div>
+      <div class="space-y-2">
+        <% @active_users.each do |user| %>
+          <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded-md">
+            <div>
+              <p class="text-sm font-medium text-gray-900"><%= user.name %></p>
+              <p class="text-xs text-gray-500"><%= user.email %></p>
+            </div>
+            <span class="text-xs font-medium <%= user.role == 'cashier' ? 'text-gray-600' : (user.role == 'manager' ? 'text-indigo-600' : 'text-green-600') %>">
+              <%= user.role.humanize %>
+            </span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+    <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">
+        Últimas Ventas
+      </h3>
+      <%= link_to "Ver Todas", sales_path, class: "text-sm text-indigo-600 hover:text-indigo-500" %>
+    </div>
+    <div class="border-t border-gray-200">
+      <% if @daily_sales.any? %>
+        <div class="flex flex-col">
+          <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+              <div class="overflow-hidden">
+                <table class="min-w-full divide-y divide-gray-200">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Hora
+                      </th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Monto
+                      </th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Método de Pago
+                      </th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Pasajeros
+                      </th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Cajero
+                      </th>
+                      <th scope="col" class="relative px-6 py-3">
+                        <span class="sr-only">Ver</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white divide-y divide-gray-200">
+                    <% @daily_sales.order(timestamp: :desc).limit(5).each do |sale| %>
+                      <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          <%= sale.timestamp.strftime("%H:%M") %>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          $<%= sale.amount %>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          <%= sale.payment_method.humanize %>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          <%= sale.number_of_passengers %>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          <%= sale.user.name %>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                          <%= link_to "Ver", sale_path(sale), class: "text-indigo-600 hover:text-indigo-900" %>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <div class="px-6 py-10 text-center">
+          <p class="text-gray-500">No hay ventas registradas hoy.</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

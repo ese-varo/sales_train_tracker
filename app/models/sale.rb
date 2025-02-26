@@ -4,8 +4,8 @@ class Sale < ApplicationRecord
   belongs_to :organization
   has_one :ticket, dependent: :destroy
 
-  validates :amount, presence: true, numerically: { greater_than: 0 }
-  validates :number_of_passengers, presence: true, numerically: { greater_than: 0 }
+  validates :amount, presence: true, numericality: { greater_than: 0 }
+  validates :number_of_passengers, presence: true, numericality: { greater_than: 0 }
 
   before_create :set_organization
   after_create :generate_ticket

@@ -8,7 +8,7 @@ class User < ApplicationRecord
   enum role: { cashier: 0, manager: 1, owner: 2 }
 
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :name, precence: true
+  validates :name, presence: true
   validates :location_id, presence: true, if: :cashier?
 
   scope :active, -> { where(active: true) }
