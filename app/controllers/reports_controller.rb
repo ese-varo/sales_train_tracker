@@ -19,7 +19,8 @@ class ReportsController < ApplicationController
     @total_amount = @sales.sum(:amount)
     @total_passengers = @sales.sum(:number_of_passengers)
     @sales_by_payment_method = @sales.group(:payment_method).count
-    @sales_by_hour = @sales.group_by_hour(:timestamp).count
+    @sales_by_hour = @sales.group_by { |sale| sale.timestamp.beginning_of_hour }
+                           .transform_values(&:count)
   end
 
   def monthly

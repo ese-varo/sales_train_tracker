@@ -16,10 +16,14 @@ class Organization < ApplicationRecord
   end
 
   def sales_by_location(start_date = nil, end_date = nil)
-    locations.includes(:sales)
-      .where(sales: { timestamp: start_date..end_date }) if start_date && end_date
-      .group('locations.id')
-      .select('locations.name, SUM(sales.amount) as total_amount')
+    query = locations.includes(:sales)
+
+    if start_date && end_date
+      query = query.where(sales: { timestamp: start_date..end_date })
+    end
+
+    query.group('locations.id')
+         .select('locations.name, SUM(sales.amount) as total_amount')
   end
 
   def monthly_report(year = Date.today.year, month = Date.today.month)
