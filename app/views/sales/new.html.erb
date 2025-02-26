@@ -1,0 +1,50 @@
+<div>
+  <h1 class="text-2xl font-bold mb-6">Nueva Venta</h1>
+
+  <div class="bg-white shadow rounded-lg p-6">
+    <%= form_with model: @sale, class: "space-y-6" do |f| %>
+      <%= if @sale.errors.any? %>
+        <div class="bg-red-50 p-4 rounded-md">
+          <h3 class="text-sm font-medium text-red-800">
+            <%= pluralize(@sale.errors.count, "error") %> al procesar la venta:
+          </h3>
+          <div class="mt-2 text-sm text-red-700">
+            <ul class="list-disc pl-5">
+              <% @sale.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+
+      <div>
+        <% f.label :amount, "Monto", class: "block text-sm font-medium text-gray-700" %>
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <span class="text-gray-500 sm:text-sm">$</span>
+          </div>
+          <%= f.number_field :amount, step: "0.01", min: "0", required: true, class: "focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md", placeholder: "0.00" %>
+        </div>
+      </div>
+
+      <div>
+        <%= f.label :payment_method, "Método de Pago", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.select :payment_method, Sale.payment_methods.keys.map { |method| [method.humanize, method] }, {}, class: "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+      </div>
+
+      <div>
+        <%= f.label :number_of_passengers, "Número de Pasajeros", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.number_field :number_of_passengers, min: "1", required: true, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+      </div>
+
+      <div>
+        <%= f.label :notes, "Notas", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.text_area :notes, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", rows: 3 %>
+      </div>
+
+      <div class="flex justify-end">
+        <%= f.submit "Registrar Venta", class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+      </div>
+    <% end %>
+  </div>
+</div>
