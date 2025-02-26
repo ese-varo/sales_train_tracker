@@ -33,11 +33,11 @@ Rails.application.routes.draw do
   end
 
   # Root path based on user role
-  authenticated :user, ->(user) { user.cashier? } do
+  constraints UserRoleConstraint::Cashier do
     root to: 'sales#new', as: :cashier_root
   end
 
-  authenticated :user, ->(user) { user.manager? || user.owner? } do
+  constraints UserRoleConstraint::Manager do
     root to: 'reports#daily', as: :manager_root
   end
 
