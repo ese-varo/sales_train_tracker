@@ -1,4 +1,4 @@
-<div class="h-full gb-gray-800 flex flex-col">
+<div class="h-full bg-gray-800 flex flex-col">
   <div class="flex items-center justify-center h-16 bg-gray-900">
     <h1 class="text-white font-bold text-xl">Train Ticket System</h1>
   </div>
@@ -10,7 +10,7 @@
     <% end %>
 
     <% if current_user.manager? || current_user.owner? %>
-      <%= link_to "Dashboard", daily_reports_path, class: "group flex items-center px-2 py-2 text-sm font-medium rounded-md text-white hover:bg-gray-700" %>
+      <%= link_to "Dashboard", reports_path, class: "group flex items-center px-2 py-2 text-sm font-medium rounded-md text-white hover:bg-gray-700" %>
       <%= link_to "Reporte Diario", daily_reports_path, class: "group flex items-center px-2 py-2 text-sm font-medium rounded-md text-white hover:bg-gray-700" %>
       <%= link_to "Reporte Mensual", monthly_reports_path, class: "group flex items-center px-2 py-2 text-sm font-medium rounded-md text-white hover:bg-gray-700" %>
       <%= link_to "Ventas", sales_path, class: "group flex items-center px-2 py-2 text-sm font-medium rounded-md text-white hover:bg-gray-700" %>
