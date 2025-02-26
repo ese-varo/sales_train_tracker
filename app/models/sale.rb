@@ -10,7 +10,7 @@ class Sale < ApplicationRecord
   before_create :set_organization
   after_create :generate_ticket
 
-  enum :payment_method, { cash: 0, credit_card: 1, debit_card: 2, other: 3 }
+  enum :payment_method, { cash: 0, credit_card: 1, debit_card: 2, other: 3 }, default: :cash
 
   def generate_ticket
     valid_until = Time.current + 1.hour # Default expiration 1 hour
