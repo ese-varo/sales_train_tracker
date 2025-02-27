@@ -75,7 +75,7 @@
                       <% if current_user.owner? %>
                         <%= link_to "Editar", edit_location_path(location), class: "text-yellow-600 hover:text-yellow-900" %>
                       <% end %>
-                      <%= link_to "Impresoras", location_printer_configs_path(location), class: "text-blue-600 hover:text-blue-900" %>
+                      <%= link_to "Impresoras", location_printer_configs_path(location), class: "text-gray-400 cursor-not-allowed pointer-events-none" %>
                     </div>
                   </td>
                 </tr>
