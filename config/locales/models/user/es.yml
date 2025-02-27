@@ -1,0 +1,9 @@
+es:
+  activerecord:
+    attributes:
+      user:
+        role: "Rol"
+        roles:
+          cashier: "Cajero"
+          manager: "Gerente"
+          owner: "Propietario"

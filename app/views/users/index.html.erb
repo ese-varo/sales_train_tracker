@@ -44,7 +44,7 @@
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
               <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full <%= user.owner? ? 'bg-purple-100 text-purple-800' : (user.manager? ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800') %>">
-                <%= user.role.humanize %>
+                <%= t("activerecord.attributes.user.roles.#{user.role}") %>
               </span>
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

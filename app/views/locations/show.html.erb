@@ -115,7 +115,7 @@
               <p class="text-xs text-gray-500"><%= user.email %></p>
             </div>
             <span class="text-xs font-medium <%= user.role == 'cashier' ? 'text-gray-600' : (user.role == 'manager' ? 'text-indigo-600' : 'text-green-600') %>">
-              <%= user.role.humanize %>
+              <%= t("activerecord.attributes.user.roles.#{user.role}") %>
             </span>
           </div>
         <% end %>
