@@ -109,7 +109,7 @@
       </div>
       <div class="space-y-2">
         <% @active_users.each do |user| %>
-          <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded-md">
+          <div class="flex flex-wrap items-center justify-between p-2 hover:bg-gray-50 rounded-md">
             <div>
               <p class="text-sm font-medium text-gray-900"><%= user.name %></p>
               <p class="text-xs text-gray-500"><%= user.email %></p>

@@ -28,7 +28,7 @@
     <% if user_signed_in? %>
       <div class="flex flex-col md:flex-row min-h-screen">
         <!-- Sidebar - hidden on mobile, visible on desktop -->
-        <div class="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
+        <div class="min-h-screen hidden md:flex md:flex-col md:inset-y-0">
           <%= render 'shared/sidebar' %>
         </div>
 
@@ -38,10 +38,8 @@
         </div>
 
         <!-- Main content -->
-        <div class="flex-1 md:ml-64 p-4">
-          <div class="max-w-7xl mx-auto">
-            <%= yield %>
-          </div>
+        <div class="flex-1 p-4 min-h-screen min-w-0 max-w-7xl mx-auto w-full">
+          <%= yield %>
         </div>
       </div>
     <% else %>
